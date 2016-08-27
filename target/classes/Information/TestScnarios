@@ -1,0 +1,7 @@
+
+Manual Test scenarios: 
+1.To test that browser is launched successfully.
+2.Verify if the user is navigated to registration page.
+3.User is able to click on sign up after providing valid emailID
+4.Verify that nothing happens when user tries to click on sign up button for invalid login ID.
+5.Verify that user is not able to login after providing wrong emailID and password.
