@@ -9,6 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 import data.Constant;
@@ -33,7 +35,7 @@ public class SignupAction {
        
 		 try
 		 {
-			 Assert.assertEquals(pageTitle, "The leading commerce platform for selling cloud services.h");
+			 Assert.assertEquals(pageTitle, "The leading commerce platform for selling cloud services.");
 			 System.out.println("Assertion Pass");
 			 
 		 }
@@ -42,6 +44,53 @@ public class SignupAction {
 			 System.out.println("Assertion failed");
 		 }
 		 }
+	
+	//TC#2 Verify user is navigated to login page after clicking on 'Login' button.
+	
+	@Test(priority=1)
+	public void LoginPageopenedTest(){ 
+
+		boolean existsElement;
+
+		WebElement un=driver.findElement(By.xpath(".//*[@id='newnav']/header/div/menu/ul/li[3]/a/span"));
+		un.click();
+		try {/*
+			String el =driver.findElement(By.xpath(".//*[@id='login-header']/nav/ul/li/a/span")).getText();
+			el.equalsIgnoreCase("AppDirect");
+			*/
+			WebElement el = (new WebDriverWait(driver, 10))
+					  .until(ExpectedConditions.presenceOfElementLocated(By.xpath(".//*[@id='login-header']/nav/ul/li/a/span")));
+			el.getText().equalsIgnoreCase("AppDirect");
+			
+			System.out.println("Login page exists");
+			existsElement=true;
+		} catch (NoSuchElementException e) {
+			existsElement=false;
+		}
+	}
+
+	
+	//TC#3 Verify user is navigated to Signup page after clicking on 'Signup' button from the login page.
+	
+		@Test(priority=1)
+		public void SignupPageOpenedTest(){ 
+
+			boolean existsElement;
+
+			WebElement un=driver.findElement(By.xpath(".//*[@id='id5']/fieldset/div[3]/menu/a"));
+			un.click();
+			try {
+				String el =driver.findElement(By.xpath(".//*[@id='ida']/fieldset/div[1]/h3")).getText();
+				el.equalsIgnoreCase("Sign Up");
+				
+				System.out.println("Signup page opened");
+				existsElement=true;
+			} catch (NoSuchElementException e) {
+				existsElement=false;
+			}
+		}
+	
+	
 	
 	/*		//TC#2 Verify if the user is navigated to registration page
 	@Test(priority=1)
