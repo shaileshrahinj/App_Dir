@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,9 +18,9 @@ import data.Constant;
 import data.ExcelReader;
 
 
-
-
 public class SignupAction {
+
+	WebElement container=null;
 	WebDriver driver=new ChromeDriver();
 	//Actions action = new Actions(driver);
 	public String URL="https://www.appdirect.com/signup";
@@ -72,7 +73,7 @@ public class SignupAction {
 
 	//TC#3 Verify user is navigated to Signup page after clicking on 'Signup' button from the login page.
 
-	@Test(priority=1)
+	@Test(priority=2)
 	public void SignupPageOpenedTest(){ 
 
 		boolean existsElement;
@@ -96,8 +97,8 @@ public class SignupAction {
 
 	//TC#4 Verify that place holder "email@address.com" is displayed in email field.
 
-	@Test(priority=1)
-	public void PlaceholderTest(){ 
+	@Test(priority=3)
+	public void PlaceholderTest() throws Exception{ 
         String pla;
 		/*WebElement placeholder1 =driver.findElement(By.xpath(".//*[@id='ida']/fieldset/div[2]/div/input"));
 		placeholder1.getAttribute(placeholder);
@@ -116,30 +117,54 @@ public class SignupAction {
 		{
 			System.out.println("Assertion failed");
 		}
-	}
+		container=placeholder1;
+		}
 
 
 	//TC#5 Verify that message for activation link is displayed once user enters correct email ID.
 
-		@Test(priority=1)
-		public void ActivationLinkMessageTest() throws Exception{ 
-	        /*WebElement placeholder1 =driver.findElement(By.xpath(".//*[@id='ida']/fieldset/div[2]/div/input"));
-			placeholder1.getAttribute(placeholder);
-			 */
-			WebElement placeholder2= (new WebDriverWait(driver,20))
-					.until(ExpectedConditions.presenceOfElementLocated(By.className("adb-text__full_width")));
-			///ExcelReader obj =new ExcelReader();
+		@Test(priority=4)
+		public void ActivationLinkMessageTest() throws Exception { 
+	        //ExcelReader obj =new ExcelReader();
 			//Read the email ID's from excel sheet
 			ExcelReader.setExcelFile(Constant.Path_TestData,"Sheet1");
 			String emailId = ExcelReader.getCellData(1,0);
 			System.out.println(emailId);
-			placeholder2.sendKeys(emailId);
+			container.sendKeys(emailId);
 			driver.findElement(By.xpath(".//*[@id='idb']")).click();
-					}
+		
+			//Activation message verification
+		
+			/*WebElement placeholder1= (new WebDriverWait(driver,20))
+					.until(ExpectedConditions.presenceOfElementLocated(By.className("adb-text__full_width")));
+			*/
+			Thread.sleep(5000);
+			
+			/*JavascriptExecutor js = (JavascriptExecutor) driver;  
+			String activationmessage= (String)js.executeScript(driver.findElement(By.xpath(".//*[@id='id25']/div/section/div/p[1]")).getText());
+			*/String activationmessage= driver.findElement(By.xpath(".//*[@id='id25']/div/section/div/p[1]")).getText();
+
+			try
+			{
+				Assert.assertEquals(activationmessage,"We have sent a verification email to rahinj.shailesh66h@gmail.com.");
+				System.out.println("This email ID has already been registered,Please enter new email ID");
+				
+				/*Assert.assertEquals(activationmessage,"This email address has already been registered in our system. Please register with a new email address.");
+				System.out.println("This email ID has already been registered,Please enter new email ID");
+				*/
+			}
+			catch(Exception e)
+			{
+				System.out.println("wtf");
+			}
+
+			driver.close();
+			
+		}
 
 
 	
-	
+
 	/*		//TC#2 Verify if the user is navigated to registration page
 	@Test(priority=1)
 	public void RegistrationPageopenedTest(){ 
