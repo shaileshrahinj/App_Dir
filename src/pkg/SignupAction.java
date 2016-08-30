@@ -81,7 +81,7 @@ public class SignupAction {
 		WebElement un=driver.findElement(By.xpath(".//*[@id='id5']/fieldset/div[3]/menu/a"));
 		un.click();
 		try {
-			String el =driver.findElement(By.xpath(".//*[@id='ida']/fieldset/div[1]/h3")).getText();
+			String el =driver.findElement(By.xpath(".//*[@id='id39']/fieldset/div[1]/h3")).getText();
 			el.equalsIgnoreCase("Sign Up");
 
 			System.out.println("Signup page opened");
@@ -142,23 +142,21 @@ public class SignupAction {
 			
 			/*JavascriptExecutor js = (JavascriptExecutor) driver;  
 			String activationmessage= (String)js.executeScript(driver.findElement(By.xpath(".//*[@id='id25']/div/section/div/p[1]")).getText());
-			*/String activationmessage= driver.findElement(By.xpath(".//*[@id='id25']/div/section/div/p[1]")).getText();
-
+			*/
+			
 			try
 			{
-				Assert.assertEquals(activationmessage,"We have sent a verification email to rahinj.shailesh66h@gmail.com.");
-				System.out.println("This email ID has already been registered,Please enter new email ID");
+				String activationmessage=driver.findElement(By.xpath(".//*[@id='id10']/div/section/div/p[2]")).getText();
+				System.out.println(activationmessage);
+				Assert.assertEquals(activationmessage,"Please check your inbox and click the link to activate your account.");
 				
-				/*Assert.assertEquals(activationmessage,"This email address has already been registered in our system. Please register with a new email address.");
-				System.out.println("This email ID has already been registered,Please enter new email ID");
-				*/
 			}
 			catch(Exception e)
 			{
-				System.out.println("wtf");
+				System.out.println("This email address has already been registered in our system. Please register with a new email address.");
 			}
 
-			driver.close();
+			driver.quit();
 			
 		}
 
