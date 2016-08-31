@@ -16,12 +16,14 @@ import org.testng.annotations.Test;
 
 import data.Constant;
 import data.ExcelReader;
+import pkg.Read;
 
 
 public class SignupAction {
 
 	WebElement container=null;
-	WebDriver driver=new ChromeDriver();
+	WebElement SignupbuttonEle=null;
+	public WebDriver driver=new ChromeDriver();
 	//Actions action = new Actions(driver);
 	public String URL="https://www.appdirect.com/signup";
 
@@ -80,8 +82,9 @@ public class SignupAction {
 
 		WebElement un=driver.findElement(By.xpath(".//*[@id='id5']/fieldset/div[3]/menu/a"));
 		un.click();
+		SignupbuttonEle=un;
 		try {
-			String el =driver.findElement(By.xpath(".//*[@id='id39']/fieldset/div[1]/h3")).getText();
+			String el =driver.findElement(By.xpath(".//*[@id='ida']/fieldset/div[1]/h3")).getText();
 			el.equalsIgnoreCase("Sign Up");
 
 			System.out.println("Signup page opened");
@@ -125,9 +128,7 @@ public class SignupAction {
 
 		@Test(priority=4)
 		public void ActivationLinkMessageTest() throws Exception { 
-	        //ExcelReader obj =new ExcelReader();
-			//Read the email ID's from excel sheet
-			ExcelReader.setExcelFile(Constant.Path_TestData,"Sheet1");
+	    	ExcelReader.setExcelFile(Constant.Path_TestData,"Sheet1");
 			String emailId = ExcelReader.getCellData(1,0);
 			System.out.println(emailId);
 			container.sendKeys(emailId);
@@ -135,31 +136,46 @@ public class SignupAction {
 		
 			//Activation message verification
 		
-			/*WebElement placeholder1= (new WebDriverWait(driver,20))
+			WebElement placeholder1= (new WebDriverWait(driver,20))
 					.until(ExpectedConditions.presenceOfElementLocated(By.className("adb-text__full_width")));
-			*/
+			
 			Thread.sleep(5000);
-			
-			/*JavascriptExecutor js = (JavascriptExecutor) driver;  
+/*			
+			JavascriptExecutor js = (JavascriptExecutor) driver;  
 			String activationmessage= (String)js.executeScript(driver.findElement(By.xpath(".//*[@id='id25']/div/section/div/p[1]")).getText());
-			*/
+*/			
 			
-			try
-			{
-				String activationmessage=driver.findElement(By.xpath(".//*[@id='id10']/div/section/div/p[2]")).getText();
-				System.out.println(activationmessage);
-				Assert.assertEquals(activationmessage,"Please check your inbox and click the link to activate your account.");
-				
-			}
-			catch(Exception e)
-			{
-				System.out.println("This email address has already been registered in our system. Please register with a new email address.");
-			}
-
-			driver.quit();
+			activationmessage();			
 			
 		}
+		
+		//TC#6 Verify that user should not be able to proceed ahead if  wrongly formatted email ID is entered.
 
+				@Test(priority=5)
+				public void InvalidEmailidTest() throws Exception { 
+			        //ExcelReader obj =new ExcelReader();
+					//Read the email ID's from excel sheet
+					driver.navigate().back();
+					WebElement un=driver.findElement(By.xpath(".//*[@id='id5']/fieldset/div[3]/menu/a"));
+					un.click();
+					ExcelReader.setExcelFile(Constant.Path_TestData,"Sheet2");
+					String emailId = ExcelReader.getCellData(1,0);
+					System.out.println(emailId);
+					container.sendKeys(emailId);
+					driver.findElement(By.xpath(".//*[@id='idb']")).click();
+					if(container.isDisplayed())
+					{
+						System.out.println("Please enter correct email ID");
+					}
+					else
+					{
+						activationmessage();
+					}
+					/*String ele=container.getAttribute("class");
+					System.out.println(ele);
+				*/
+					driver.quit();
+				}
 
 	
 
@@ -252,5 +268,21 @@ public class SignupAction {
 		}
 		driver.close();
 
-	 */	}
+	 */	
 
+public  void activationmessage() {
+try
+		{
+			String activationmessage=driver.findElement(By.xpath(".//*[@id='id10']/div/section/div/p[2]")).getText();
+			System.out.println(activationmessage);
+			Assert.assertEquals(activationmessage,"Please check your inbox and click the link to activate your account.");
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println("This email address has already been registered in our system. Please register with a new email address.");
+		}
+
+
+	}
+}
