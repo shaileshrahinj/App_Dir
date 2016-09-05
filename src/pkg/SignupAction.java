@@ -1,41 +1,118 @@
 package pkg;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.NoSuchElementException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-
+import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import data.Constant;
 import data.ExcelReader;
-import pkg.Read;
-
+import pkg.RootClass;
 
 public class SignupAction {
 
 	WebElement container=null;
 	WebElement SignupbuttonEle=null;
-	public WebDriver driver=new ChromeDriver();
-	//Actions action = new Actions(driver);
+	WebElement container2=null;
+	private static String driverPath;
+	private static String AppDirURL;
+	private static WebDriver driver;
+	public static String browser;
+	//public WebDriver driver=new ChromeDriver();
+	private static final Logger LOGGER = Logger.getLogger(SignupAction.class);
+	/*//Actions action = new Actions(driver);
 	public String URL="https://www.appdirect.com/signup";
-
-	//TC#1 Verify that website "https://www.appdirect.com" is launched successfully.
-	@Test(priority=0)
-	public void OpeningBrowser() {
-		System.setProperty("webdriver.chrome.driver", "F:\\eclipse\\chromedriver.exe");
+*/@BeforeTest
+	@Parameters("browser")
+	public void setup(String browser) throws IOException {
+		/*System.setProperty("webdriver.chrome.driver", "F:\\eclipse\\chromedriver.exe");
 		driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
 		driver.get("http://www.appdirect.com/");
 		driver.manage().window().maximize();
-		String pageTitle= driver.findElement(By.xpath("html/body/main/section[1]/div[2]/div/h1")).getText();
+		
+		*/
 
+		
+	/*Properties prop=new Properties();
+		
+	FileInputStream objfile = new FileInputStream(System.getProperty("user.dir")+"\\src\\data\\app.properties");
+	//InputStream input =SignupAction.class.getClassLoader().getResourceAsStream("data/app.properties");
+	    prop.load(objfile);
+	*/
+	if (browser.equalsIgnoreCase("FF")) {
+			LOGGER.info(" USING FF browser --------- ");
+			driver = new FirefoxDriver();
+			// changing as firefox updated to 47
+			// System.setProperty("webdriver.gecko.driver", driverPath +
+			// "geckodriver.exe");
+			// DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+			// setDriver(new MarionetteDriver(capabilities));
+
+		} else if (browser.equalsIgnoreCase("Chrome")) {
+			LOGGER.info(" USING Chrome browser --------- ");
+
+			System.setProperty("webdriver.chrome.driver","F:\\Shailesh\\WorkSelenium\\AppDir1\\BrowserDrivers\\chromedriver.exe");
+			/*DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+			ChromeOptions options = new ChromeOptions();
+
+			options.addArguments("--disable-web-security");
+
+			capabilities.setCapability("chrome.binary", prop.getProperty(driverPathChrome) + "chromedriver.exe");
+			capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+
+			setDriver(new ChromeDriver(capabilities));
+*/		//setDriver(new ChromeDriver());
+			 driver = new ChromeDriver();
+			}
+		if (browser.equalsIgnoreCase("IE")) {
+
+			LOGGER.info(" USING IE browser --------- ");
+
+			DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+			capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+			System.setProperty("webdriver.ie.driver","F:\\Shailesh\\WorkSelenium\\AppDir1\\BrowserDrivers\\IEDriverServer.exe");
+			//setDriver(new InternetExplorerDriver(capabilities));
+			driver = new InternetExplorerDriver();
+		}
+
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+		
+		//AppDirURL = prop.getProperty("AppDirectURL");
+		driver.get("http://www.appdirect.com/");
+		
+	//	return driver;
+
+	}
+		//TC#1 Verify that website "https://www.appdirect.com" is launched successfully.
+		@Test(priority=0)
+		
+		public void WebsiteOpenedTest(){
+
+			LOGGER.info("Test1");
+			LOGGER.info("Testcase 1 is being executed");
+
+			String pageTitle= driver.findElement(By.xpath("html/body/main/section[1]/div[2]/div/h1")).getText();
+		
 		try
 		{
 			Assert.assertEquals(pageTitle, "The leading commerce platform for selling cloud services.");
@@ -46,8 +123,14 @@ public class SignupAction {
 		{
 			System.out.println("Assertion failed");
 		}
+		
 	}
-
+	
+	/*
+	public static void setDriver(WebDriver _driver) {
+		driver = _driver;
+	}
+*/
 	//TC#2 Verify user is navigated to login page after clicking on 'Login' button.
 
 	@Test(priority=1)
@@ -94,12 +177,7 @@ public class SignupAction {
 		}
 	}
 
-
-
-
-
 	//TC#4 Verify that place holder "email@address.com" is displayed in email field.
-
 	@Test(priority=3)
 	public void PlaceholderTest() throws Exception{ 
         String pla;
@@ -128,7 +206,8 @@ public class SignupAction {
 
 		@Test(priority=4)
 		public void ActivationLinkMessageTest() throws Exception { 
-	    	ExcelReader.setExcelFile(Constant.Path_TestData,"Sheet1");
+			//*****************Read the data from Excel************************
+			ExcelReader.setExcelFile(Constant.Path_TestData,"Sheet1");
 			String emailId = ExcelReader.getCellData(1,0);
 			System.out.println(emailId);
 			container.sendKeys(emailId);
@@ -139,7 +218,7 @@ public class SignupAction {
 			WebElement placeholder1= (new WebDriverWait(driver,20))
 					.until(ExpectedConditions.presenceOfElementLocated(By.className("adb-text__full_width")));
 			
-			Thread.sleep(5000);
+			Thread.sleep(2000);
 /*			
 			JavascriptExecutor js = (JavascriptExecutor) driver;  
 			String activationmessage= (String)js.executeScript(driver.findElement(By.xpath(".//*[@id='id25']/div/section/div/p[1]")).getText());
@@ -161,9 +240,26 @@ public class SignupAction {
 					ExcelReader.setExcelFile(Constant.Path_TestData,"Sheet2");
 					String emailId = ExcelReader.getCellData(1,0);
 					System.out.println(emailId);
+					
+					try{
 					container.sendKeys(emailId);
-					driver.findElement(By.xpath(".//*[@id='idb']")).click();
-					if(container.isDisplayed())
+					
+					}
+					catch(org.openqa.selenium.StaleElementReferenceException ex)
+					{
+					    //log.debug("Exception in finding email field");
+					    //log.debug(e);
+						//driver.findElement(By.xpath(".//*[@id='id3']/fieldset/div[2]/div/input")).sendKeys(emailId);
+					    driver.navigate().refresh();
+					    WebElement placeholder2= (new WebDriverWait(driver,20))
+								.until(ExpectedConditions.presenceOfElementLocated(By.className("adb-text__full_width")));
+						placeholder2.sendKeys(emailId);
+						container2=	placeholder2;   
+						//container.sendKeys(emailId);
+					}
+					
+		driver.findElement(By.name("userSignupButton")).click();
+					if(container2.isDisplayed())
 					{
 						System.out.println("Please enter correct email ID");
 					}

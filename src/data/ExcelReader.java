@@ -104,18 +104,19 @@ public static void setCellData(String Result,  int RowNum, int ColNum) throws Ex
 
 	}
 
-/*
+
 
 public static void main(String args[]) throws Exception{
 	
-	ExcelReader obj =new ExcelReader();
-	obj.setExcelFile(Constant.Path_TestData,"Sheet1");
+	//ExcelReader obj =new ExcelReader();
+	ExcelReader.setExcelFile(Constant.Path_TestData,"Sheet1");
 	//Cell.setCellType(Cell.CELL_TYPE_STRING);
 	String susername = ExcelReader.getCellData(1,0);
 	 System.out.println(susername);
 	  		String spassword =ExcelReader.getCellData(1,1);
 	  		System.out.println(spassword);
-*/	 
+ 
+}
 }
 
 

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Failed suite [Suite]">
-  <test name="Test(failed)">
+<suite name="Failed suite [Suite]" parallel="tests">
+  <parameter name="browser" value="Chrome"/>
+  <test name="Test(failed)" parallel="tests">
+    <parameter name="browser" value="Chrome"/>
     <classes>
       <class name="pkg.SignupAction">
         <methods>
-          <include name="OpeningBrowser"/>
+          <include name="setup"/>
+          <include name="InvalidEmailidTest"/>
         </methods>
       </class> <!-- pkg.SignupAction -->
     </classes>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Suite" parallel="false">
-  <test name="Test">
-    <classes>
+<suite name="Suite" parallel="tests">
+  <test name="Test" preserve-order="true">
+  <parameter name="browser" value="Chrome" />
+<classes>
       <class name="pkg.SignupAction"/>
-    </classes>
+     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
