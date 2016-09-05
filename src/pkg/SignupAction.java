@@ -41,37 +41,37 @@ public class SignupAction {
 	private static final Logger LOGGER = Logger.getLogger(SignupAction.class);
 	/*//Actions action = new Actions(driver);
 	public String URL="https://www.appdirect.com/signup";
-*/@BeforeTest
-	@Parameters("browser")
-	public void setup(String browser) throws IOException {
-		/*System.setProperty("webdriver.chrome.driver", "F:\\eclipse\\chromedriver.exe");
+	 */@BeforeTest
+	 @Parameters("browser")
+	 public void setup(String browser) throws IOException {
+		 /*System.setProperty("webdriver.chrome.driver", "F:\\eclipse\\chromedriver.exe");
 		driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
 		driver.get("http://www.appdirect.com/");
 		driver.manage().window().maximize();
-		
-		*/
 
-		
-	/*Properties prop=new Properties();
-		
+		  */
+
+
+		 /*Properties prop=new Properties();
+
 	FileInputStream objfile = new FileInputStream(System.getProperty("user.dir")+"\\src\\data\\app.properties");
 	//InputStream input =SignupAction.class.getClassLoader().getResourceAsStream("data/app.properties");
 	    prop.load(objfile);
-	*/
-	if (browser.equalsIgnoreCase("FF")) {
-			LOGGER.info(" USING FF browser --------- ");
-			driver = new FirefoxDriver();
-			// changing as firefox updated to 47
-			// System.setProperty("webdriver.gecko.driver", driverPath +
-			// "geckodriver.exe");
-			// DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-			// setDriver(new MarionetteDriver(capabilities));
+		  */
+		 if (browser.equalsIgnoreCase("FF")) {
+			 LOGGER.info(" USING FF browser --------- ");
+			 driver = new FirefoxDriver();
+			 // changing as firefox updated to 47
+			 // System.setProperty("webdriver.gecko.driver", driverPath +
+			 // "geckodriver.exe");
+			 // DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+			 // setDriver(new MarionetteDriver(capabilities));
 
-		} else if (browser.equalsIgnoreCase("Chrome")) {
-			LOGGER.info(" USING Chrome browser --------- ");
+		 } else if (browser.equalsIgnoreCase("Chrome")) {
+			 LOGGER.info(" USING Chrome browser --------- ");
 
-			System.setProperty("webdriver.chrome.driver","F:\\Shailesh\\WorkSelenium\\AppDir1\\BrowserDrivers\\chromedriver.exe");
-			/*DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+			 System.setProperty("webdriver.chrome.driver","F:\\Shailesh\\WorkSelenium\\AppDir1\\BrowserDrivers\\chromedriver.exe");
+			 /*DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 			ChromeOptions options = new ChromeOptions();
 
 			options.addArguments("--disable-web-security");
@@ -80,202 +80,206 @@ public class SignupAction {
 			capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 
 			setDriver(new ChromeDriver(capabilities));
-*/		//setDriver(new ChromeDriver());
+			  */		//setDriver(new ChromeDriver());
 			 driver = new ChromeDriver();
-			}
-		if (browser.equalsIgnoreCase("IE")) {
+		 }
+		 if (browser.equalsIgnoreCase("IE")) {
 
-			LOGGER.info(" USING IE browser --------- ");
+			 LOGGER.info(" USING IE browser --------- ");
 
-			DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
-			capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
-			System.setProperty("webdriver.ie.driver","F:\\Shailesh\\WorkSelenium\\AppDir1\\BrowserDrivers\\IEDriverServer.exe");
-			//setDriver(new InternetExplorerDriver(capabilities));
-			driver = new InternetExplorerDriver();
-		}
+			 DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+			 capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+			 System.setProperty("webdriver.ie.driver","F:\\Shailesh\\WorkSelenium\\AppDir1\\BrowserDrivers\\IEDriverServer.exe");
+			 //setDriver(new InternetExplorerDriver(capabilities));
+			 driver = new InternetExplorerDriver();
+		 }
 
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
-		
-		//AppDirURL = prop.getProperty("AppDirectURL");
-		driver.get("http://www.appdirect.com/");
-		
-	//	return driver;
+		 driver.manage().window().maximize();
+		 driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
 
-	}
-		//TC#1 Verify that website "https://www.appdirect.com" is launched successfully.
-		@Test(priority=0)
-		
-		public void WebsiteOpenedTest(){
+		 //AppDirURL = prop.getProperty("AppDirectURL");
+		 driver.get("http://www.appdirect.com/");
 
-			LOGGER.info("Test1");
-			LOGGER.info("Testcase 1 is being executed");
+		 //	return driver;
 
-			String pageTitle= driver.findElement(By.xpath("html/body/main/section[1]/div[2]/div/h1")).getText();
-		
-		try
-		{
-			Assert.assertEquals(pageTitle, "The leading commerce platform for selling cloud services.");
-			System.out.println("Assertion Pass");
+	 }
+	 //TC#1 Verify that website "https://www.appdirect.com" is launched successfully.
+	 @Test(priority=0)
 
-		}
-		catch(AssertionError e)
-		{
-			System.out.println("Assertion failed");
-		}
-		
-	}
-	
-	/*
+	 public void WebsiteOpenedTest(){
+
+		 LOGGER.info("TC#1 WebsiteOpenedTest");
+
+		 String pageTitle= driver.findElement(By.xpath("html/body/main/section[1]/div[2]/div/h1")).getText();
+
+		 try
+		 {
+			 Assert.assertEquals(pageTitle, "The leading commerce platform for selling cloud services.");
+			 System.out.println("Assertion Pass");
+
+		 }
+		 catch(AssertionError e)
+		 {
+			 System.out.println("Assertion failed");
+		 }
+
+	 }
+
+	 /*
 	public static void setDriver(WebDriver _driver) {
 		driver = _driver;
 	}
-*/
-	//TC#2 Verify user is navigated to login page after clicking on 'Login' button.
+	  */
+	 //TC#2 Verify user is navigated to login page after clicking on 'Login' button.
 
-	@Test(priority=1)
-	public void LoginPageopenedTest(){ 
+	 @Test(priority=1)
+	 public void LoginPageopenedTest(){ 
+		 LOGGER.info("TC#2 LoginPageopenedTest");
+		 boolean existsElement;
 
-		boolean existsElement;
-
-		WebElement un=driver.findElement(By.xpath(".//*[@id='newnav']/header/div/menu/ul/li[3]/a/span"));
-		un.click();
-		try {/*
+		 WebElement un=driver.findElement(By.xpath(".//*[@id='newnav']/header/div/menu/ul/li[3]/a/span"));
+		 un.click();
+		 try {/*
 			String el =driver.findElement(By.xpath(".//*[@id='login-header']/nav/ul/li/a/span")).getText();
 			el.equalsIgnoreCase("AppDirect");
-		 */
-			WebElement el = (new WebDriverWait(driver,20))
-					.until(ExpectedConditions.presenceOfElementLocated(By.xpath(".//*[@id='login-header']/nav/ul/li/a/span")));
-			el.getText().equalsIgnoreCase("AppDirect");
+		  */
+			 WebElement el = (new WebDriverWait(driver,20))
+					 .until(ExpectedConditions.presenceOfElementLocated(By.xpath(".//*[@id='login-header']/nav/ul/li/a/span")));
+			 el.getText().equalsIgnoreCase("AppDirect");
 
-			System.out.println("Login page exists");
-			existsElement=true;
-		} catch (NoSuchElementException e) {
-			existsElement=false;
-		}
-	}
+			 System.out.println("Login page exists");
+			 existsElement=true;
+		 } catch (NoSuchElementException e) {
+			 existsElement=false;
+		 }
+	 }
 
 
-	//TC#3 Verify user is navigated to Signup page after clicking on 'Signup' button from the login page.
+	 //TC#3 Verify user is navigated to Signup page after clicking on 'Signup' button from the login page.
 
-	@Test(priority=2)
-	public void SignupPageOpenedTest(){ 
+	 @Test(priority=2)
+	 public void SignupPageOpenedTest(){ 
+     LOGGER.info("TC#3 SignupPageOpenedTest");
+		 boolean existsElement;
 
-		boolean existsElement;
+		 WebElement un=driver.findElement(By.xpath(".//*[@id='id5']/fieldset/div[3]/menu/a"));
+		 un.click();
+		 SignupbuttonEle=un;
+		 try {
+			 String el =driver.findElement(By.xpath(".//*[@id='ida']/fieldset/div[1]/h3")).getText();
+			 el.equalsIgnoreCase("Sign Up");
 
-		WebElement un=driver.findElement(By.xpath(".//*[@id='id5']/fieldset/div[3]/menu/a"));
-		un.click();
-		SignupbuttonEle=un;
-		try {
-			String el =driver.findElement(By.xpath(".//*[@id='ida']/fieldset/div[1]/h3")).getText();
-			el.equalsIgnoreCase("Sign Up");
+			 System.out.println("Signup page opened");
+			 existsElement=true;
+		 } catch (NoSuchElementException e) {
+			 existsElement=false;
+		 }
+	 }
 
-			System.out.println("Signup page opened");
-			existsElement=true;
-		} catch (NoSuchElementException e) {
-			existsElement=false;
-		}
-	}
-
-	//TC#4 Verify that place holder "email@address.com" is displayed in email field.
-	@Test(priority=3)
-	public void PlaceholderTest() throws Exception{ 
-        String pla;
-		/*WebElement placeholder1 =driver.findElement(By.xpath(".//*[@id='ida']/fieldset/div[2]/div/input"));
+	 //TC#4 Verify that place holder "email@address.com" is displayed in email field.
+	 @Test(priority=3)
+	 public void PlaceholderTest() throws Exception{ 
+	
+		 LOGGER.info("TC#4 PlaceholderTest");
+		 String pla;
+		 /*WebElement placeholder1 =driver.findElement(By.xpath(".//*[@id='ida']/fieldset/div[2]/div/input"));
 		placeholder1.getAttribute(placeholder);
-		 */
-		WebElement placeholder1= (new WebDriverWait(driver,20))
-				.until(ExpectedConditions.presenceOfElementLocated(By.className("adb-text__full_width")));
-		pla=placeholder1.getAttribute("placeholder");
+		  */
+		 WebElement placeholder1= (new WebDriverWait(driver,20))
+				 .until(ExpectedConditions.presenceOfElementLocated(By.className("adb-text__full_width")));
+		 pla=placeholder1.getAttribute("placeholder");
 
-		try
-		{	
-			Assert.assertEquals(pla,"email@address.com");
-			System.out.println("Assertion Pass");
+		 try
+		 {	
+			 Assert.assertEquals(pla,"email@address.com");
+			 System.out.println("Assertion Pass");
 
-		}
-		catch(AssertionError e)
-		{
-			System.out.println("Assertion failed");
-		}
-		container=placeholder1;
-		}
+		 }
+		 catch(AssertionError e)
+		 {
+			 System.out.println("Assertion failed");
+		 }
+		 container=placeholder1;
+	 }
 
 
-	//TC#5 Verify that message for activation link is displayed once user enters correct email ID.
+	 //TC#5 Verify that message for activation link is displayed once user enters correct email ID.
 
-		@Test(priority=4)
-		public void ActivationLinkMessageTest() throws Exception { 
-			//*****************Read the data from Excel************************
-			ExcelReader.setExcelFile(Constant.Path_TestData,"Sheet1");
-			String emailId = ExcelReader.getCellData(1,0);
-			System.out.println(emailId);
-			container.sendKeys(emailId);
-			driver.findElement(By.xpath(".//*[@id='idb']")).click();
-		
-			//Activation message verification
-		
-			WebElement placeholder1= (new WebDriverWait(driver,20))
-					.until(ExpectedConditions.presenceOfElementLocated(By.className("adb-text__full_width")));
-			
-			Thread.sleep(2000);
-/*			
+	 @Test(priority=4)
+	 public void ActivationLinkMessageTest() throws Exception { 
+		 
+		 LOGGER.info("TC#5 ActivationLinkMessageTest");
+		 //*****************Read the data from Excel************************
+		 ExcelReader.setExcelFile(Constant.Path_TestData,"Sheet1");
+		 String emailId = ExcelReader.getCellData(1,0);
+		 System.out.println(emailId);
+		 container.sendKeys(emailId);
+		 driver.findElement(By.xpath(".//*[@id='idb']")).click();
+
+		 //Activation message verification
+
+		 WebElement placeholder1= (new WebDriverWait(driver,20))
+				 .until(ExpectedConditions.presenceOfElementLocated(By.className("adb-text__full_width")));
+
+		 Thread.sleep(2000);
+		 /*			
 			JavascriptExecutor js = (JavascriptExecutor) driver;  
 			String activationmessage= (String)js.executeScript(driver.findElement(By.xpath(".//*[@id='id25']/div/section/div/p[1]")).getText());
-*/			
-			
-			activationmessage();			
-			
-		}
-		
-		//TC#6 Verify that user should not be able to proceed ahead if  wrongly formatted email ID is entered.
+		  */			
 
-				@Test(priority=5)
-				public void InvalidEmailidTest() throws Exception { 
-			        //ExcelReader obj =new ExcelReader();
-					//Read the email ID's from excel sheet
-					driver.navigate().back();
-					WebElement un=driver.findElement(By.xpath(".//*[@id='id5']/fieldset/div[3]/menu/a"));
-					un.click();
-					ExcelReader.setExcelFile(Constant.Path_TestData,"Sheet2");
-					String emailId = ExcelReader.getCellData(1,0);
-					System.out.println(emailId);
-					
-					try{
-					container.sendKeys(emailId);
-					
-					}
-					catch(org.openqa.selenium.StaleElementReferenceException ex)
-					{
-					    //log.debug("Exception in finding email field");
-					    //log.debug(e);
-						//driver.findElement(By.xpath(".//*[@id='id3']/fieldset/div[2]/div/input")).sendKeys(emailId);
-					    driver.navigate().refresh();
-					    WebElement placeholder2= (new WebDriverWait(driver,20))
-								.until(ExpectedConditions.presenceOfElementLocated(By.className("adb-text__full_width")));
-						placeholder2.sendKeys(emailId);
-						container2=	placeholder2;   
-						//container.sendKeys(emailId);
-					}
-					
-		driver.findElement(By.name("userSignupButton")).click();
-					if(container2.isDisplayed())
-					{
-						System.out.println("Please enter correct email ID");
-					}
-					else
-					{
-						activationmessage();
-					}
-					/*String ele=container.getAttribute("class");
+		 activationmessage();			
+
+	 }
+
+	 //TC#6 Verify that user should not be able to proceed ahead if  wrongly formatted email ID is entered.
+
+	 @Test(priority=5)
+	 public void InvalidEmailidTest() throws Exception { 
+		 LOGGER.info("TC#5 InvalidEmailidTest");
+		 //ExcelReader obj =new ExcelReader();
+		 //Read the email ID's from excel sheet
+		 driver.navigate().back();
+		 WebElement un=driver.findElement(By.xpath(".//*[@id='id5']/fieldset/div[3]/menu/a"));
+		 un.click();
+		 ExcelReader.setExcelFile(Constant.Path_TestData,"Sheet2");
+		 String emailId = ExcelReader.getCellData(1,0);
+		 System.out.println(emailId);
+
+		 try{
+			 container.sendKeys(emailId);
+
+		 }
+		 catch(org.openqa.selenium.StaleElementReferenceException ex)
+		 {
+			 //log.debug("Exception in finding email field");
+			 //log.debug(e);
+			 //driver.findElement(By.xpath(".//*[@id='id3']/fieldset/div[2]/div/input")).sendKeys(emailId);
+			 driver.navigate().refresh();
+			 WebElement placeholder2= (new WebDriverWait(driver,20))
+					 .until(ExpectedConditions.presenceOfElementLocated(By.className("adb-text__full_width")));
+			 placeholder2.sendKeys(emailId);
+			 container2=	placeholder2;   
+			 //container.sendKeys(emailId);
+		 }
+
+		 driver.findElement(By.name("userSignupButton")).click();
+		 if(container2.isDisplayed())
+		 {
+			 System.out.println("Please enter correct email ID");
+		 }
+		 else
+		 {
+			 activationmessage();
+		 }
+		 /*String ele=container.getAttribute("class");
 					System.out.println(ele);
-				*/
-					driver.quit();
-				}
+		  */
+		 driver.quit();
+	 }
 
-	
 
-	/*		//TC#2 Verify if the user is navigated to registration page
+
+	 /*		//TC#2 Verify if the user is navigated to registration page
 	@Test(priority=1)
 	public void RegistrationPageopenedTest(){ 
 
@@ -364,21 +368,21 @@ public class SignupAction {
 		}
 		driver.close();
 
-	 */	
+	  */	
 
-public  void activationmessage() {
-try
-		{
-			String activationmessage=driver.findElement(By.xpath(".//*[@id='id10']/div/section/div/p[2]")).getText();
-			System.out.println(activationmessage);
-			Assert.assertEquals(activationmessage,"Please check your inbox and click the link to activate your account.");
-			
-		}
-		catch(Exception e)
-		{
-			System.out.println("This email address has already been registered in our system. Please register with a new email address.");
-		}
+	 public  void activationmessage() {
+		 try
+		 {
+			 String activationmessage=driver.findElement(By.xpath(".//*[@id='id10']/div/section/div/p[2]")).getText();
+			 System.out.println(activationmessage);
+			 Assert.assertEquals(activationmessage,"Please check your inbox and click the link to activate your account.");
+
+		 }
+		 catch(Exception e)
+		 {
+			 System.out.println("This email address has already been registered in our system. Please register with a new email address.");
+		 }
 
 
-	}
+	 }
 }
