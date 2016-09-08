@@ -52,6 +52,7 @@ public class SignupAction {
 
 		 } else if (browser.equalsIgnoreCase("Chrome")) {
 			 LOGGER.info(" USING Chrome browser --------- ");
+			 System.setProperty("webdriver.chrome.driver","F:\\Shailesh\\WorkSelenium\\AppDir1\\BrowserDrivers\\chromedriver.exe");
 			 driver = new ChromeDriver();
 		 }
 		 if (browser.equalsIgnoreCase("IE")) {
