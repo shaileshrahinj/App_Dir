@@ -1,7 +1,0 @@
-#Selenium with TestNg is used for this project.
-#Maven build tool is used.
-#For running the test cases for this project please execute the testng.xml file.
-#testng.xml file can be modified to execute the particular method or test case. Please add the tag
- <methods>
-        <include name="method name">
-        </methods>

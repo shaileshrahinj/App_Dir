@@ -106,7 +106,7 @@ public static void setCellData(String Result,  int RowNum, int ColNum) throws Ex
 
 
 
-public static void main(String args[]) throws Exception{
+/*public static void main(String args[]) throws Exception{
 	
 	//ExcelReader obj =new ExcelReader();
 	ExcelReader.setExcelFile(Constant.Path_TestData,"Sheet1");
@@ -117,7 +117,7 @@ public static void main(String args[]) throws Exception{
 	  		System.out.println(spassword);
  
 }
-}
+*/}
 
 
 

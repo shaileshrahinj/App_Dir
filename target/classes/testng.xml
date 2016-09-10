@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="tests">
   <test name="Test" preserve-order="true">
-  <parameter name="browser" value="Chrome" />
-<classes>
+     <parameter name="browser" value="Chrome" />
+  <classes>
       <class name="pkg.SignupAction"/>
-     </classes>
-  </test> <!-- Test -->
+      </classes>
+  <groups>
+      <run>
+      <include name="regression"/>
+      <include name="smoke"/>
+      </run>
+   </groups>
+   </test> <!-- Test -->
 </suite> <!-- Suite -->

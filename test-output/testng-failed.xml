@@ -4,11 +4,22 @@
   <parameter name="browser" value="Chrome"/>
   <test name="Test(failed)" parallel="tests">
     <parameter name="browser" value="Chrome"/>
+    <groups>
+      <run>
+        <include name="regression"/>
+        <include name="smoke"/>
+      </run>
+    </groups>
     <classes>
       <class name="pkg.SignupAction">
         <methods>
+          <include name="SignupPageOpenedTest"/>
+          <include name="LoginPageopenedTest"/>
+          <include name="PlaceholderTest"/>
           <include name="setup"/>
           <include name="InvalidEmailidTest"/>
+          <include name="WebsiteOpenedTest"/>
+          <include name="ActivationLinkMessageTest"/>
         </methods>
       </class> <!-- pkg.SignupAction -->
     </classes>

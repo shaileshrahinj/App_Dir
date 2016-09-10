@@ -1,7 +1,8 @@
 
 Manual Test scenarios: 
 1.To test that browser is launched successfully.
-2.Verify if the user is navigated to registration page.
-3.User is able to click on sign up after providing valid emailID
-4.Verify that nothing happens when user tries to click on sign up button for invalid login ID.
-5.Verify that user is not able to login after providing wrong emailID and password.
+2.To test that user is navigated to login page after clicking on 'Login' button.
+3.To test that user is navigated to Signup page after clicking on 'SignUp' button from the login page.
+4.To test that place holder "email@address.com" is displayed in email field.
+5.To test that message for activation link is displayed once user enters correct email ID.
+6.To test that user should not be able to proceed ahead if  wrongly formatted email ID is entered.
