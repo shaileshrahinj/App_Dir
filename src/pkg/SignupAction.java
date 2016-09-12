@@ -48,7 +48,8 @@ public class SignupAction {
 	
 		} else if (browser.equalsIgnoreCase("Chrome")) {
 			LOGGER.info(" USING Chrome browser --------- ");
-			System.setProperty("webdriver.chrome.driver","F:\\Shailesh\\WorkSelenium\\AppDir1\\BrowserDrivers\\chromedriver.exe");
+			SignupAction.loadProperties();
+			System.setProperty("webdriver.chrome.driver",testProperties.getProperty("driverPath")+ "\\chromedriver.exe");
 			driver = new ChromeDriver();
 		}
 		if (browser.equalsIgnoreCase("IE")) {
@@ -57,7 +58,8 @@ public class SignupAction {
 
 			DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
 			capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
-			System.setProperty("webdriver.ie.driver","F:\\Shailesh\\WorkSelenium\\AppDir1\\BrowserDrivers\\IEDriverServer.exe");
+			SignupAction.loadProperties();
+			System.setProperty("webdriver.ie.driver",testProperties.getProperty("driverPath")+ "\\IEDriverServer.exe");
 			driver = new InternetExplorerDriver();
 		}
 
@@ -79,7 +81,7 @@ public class SignupAction {
        try
 		{
 			Assert.assertEquals(pageTitle, "The leading commerce platform for selling cloud services.");
-			//System.out.println("Assertion Pass");
+			System.out.println("TC #1 passed: Assertion Passed");
 
 		}
 		catch(AssertionError e)
@@ -126,7 +128,7 @@ public class SignupAction {
 			String el =driver.findElement(By.xpath(testProperties.getProperty("SignUP_Button"))).getText();
 			el.equalsIgnoreCase("Sign Up");
 			LOGGER.info("Signup page opened");
-			System.out.println("Signup page opened");
+			System.out.println("TC#3 Passed: Signup page opened");
 			existsElement=true;
 		} catch (NoSuchElementException e) {
 			existsElement=false;
@@ -185,7 +187,8 @@ public class SignupAction {
 			JavascriptExecutor js = (JavascriptExecutor) driver;  
 			String activationmessage= (String)js.executeScript(driver.findElement(By.xpath(".//*[@id='id25']/div/section/div/p[1]")).getText());
 		 */			
-		activationmessage();			
+		activationmessage();
+		System.out.println("TC#5 Passed");
 
 	}
 
@@ -221,7 +224,7 @@ public class SignupAction {
 		if(container2.isDisplayed())
 		{
 			LOGGER.info("InvalidEmailid entered");
-			System.out.println("Please enter correct email ID the email id you have entered is not correct");
+			System.out.println("TC#6 Passed:Please enter correct email ID the email id you have entered is not correct");
 		}
 		else
 		{
